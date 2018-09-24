@@ -10,6 +10,11 @@ Building DMD in debug mode seems to cause unittests to fail when it is used (for
 If you accidentally build it in debug mode, then simply delete the `dmd.exe` at `dmd2/output/bin/dmd.exe` and the tool will go back to using
 the HOST_DC you specify in it's configuration. From there, simply rebuild DMD in release.
 
+If you decide to use this tool for a decent amount of time, you might get random 'undefined symbol std...' errors when updating
+one of your forks. In my experience it means something in the `dmd2/output/lib` folder is out of date (well, I think). One solution therefor
+is to delete your 'precompiled' folder, set it up again using the instructions from `ddev setup`, and let it replace all the files again.
+Make sure to rebuild phobos after doing this though, as it will be overridden by the precompiled version.
+
 # Usage
 First, place the script into it's own folder.
 
@@ -17,7 +22,8 @@ Open the file and look under the 'CONFIGURATION' section and set it up for your 
 
 Run/compile it with dub using `dub run --single ddev.d` or `dub build --single ddev.d`.
 
-Run `ddev setup` and it'll give you an error telling you to download something from the Dlang website. Follow it's instructions.
+Run `ddev setup` and it'll give you an error telling you to download something from the Dlang website. Follow it's instructions
+as there will be a lot of files here that DMD will need to run properly (e.g. sc.ini, the large array of DLLs for windows, etc).
 
 Run `ddev setup` again to setup your development environment. The tool will clone all the forks/official repos based on your configuration.
 The projects reside in `dmd2/src/`.
