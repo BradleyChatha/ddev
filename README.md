@@ -20,6 +20,7 @@ Run/compile it with dub using `dub run --single ddev.d` or `dub build --single d
 Run `ddev setup` and it'll give you an error telling you to download something from the Dlang website. Follow it's instructions.
 
 Run `ddev setup` again to setup your development environment. The tool will clone all the forks/official repos based on your configuration.
+The projects reside in `dmd2/src/`.
 
 Run `ddev build dmd release` (debug dmd seems to fail unittests for some reason).
 From this point on, the tool will use the newly-built DMD for building, instead of the one specified in the configuration.
@@ -31,6 +32,8 @@ Run `ddev build phobos` (I think you may need DMC on your path for this)
 If all the above could be done without errors, then everything should be setup.
 
 Modify the projects to your needs, then simply run the `ddev build xxx` command again.
+When you're happy, since the projects you modify will be clones of your fork on github (if configured that way), you can follow your normal
+flow of pushing and opening PR.
 
 # Future considerations
 * Linux and OSX support
