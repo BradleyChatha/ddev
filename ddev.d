@@ -50,7 +50,10 @@ void setupCopyMap()
 
         DRUNTIME_LINK_NAME: null,
 
-        PHOBOS_LINK_NAME: null
+        PHOBOS_LINK_NAME: 
+        [
+            "phobos.lib": OUTPUT_LIB_FOLDER
+        ]
     ];
 }
 
