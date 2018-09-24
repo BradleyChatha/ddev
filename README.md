@@ -17,9 +17,9 @@ Open the file and look under the 'CONFIGURATION' section and set it up for your 
 
 Run/compile it with dub using `dub run --single ddev.d` or `dub build --single ddev.d`.
 
-Run the executable and it'll give you an error telling you to download something from the Dlang website. Follow it's instructions.
+Run `ddev setup` and it'll give you an error telling you to download something from the Dlang website. Follow it's instructions.
 
-Run `ddev setup` to setup your development environment. The tool will clone all the forks/official repos based on your configuration.
+Run `ddev setup` again to setup your development environment. The tool will clone all the forks/official repos based on your configuration.
 
 Run `ddev build dmd release` (debug dmd seems to fail unittests for some reason).
 From this point on, the tool will use the newly-built DMD for building, instead of the one specified in the configuration.
