@@ -169,7 +169,7 @@ void downloadRepo(string username, string repoName)
     writefln("'%s' doesn't seem to be setup, downloading...", repoName);
     pushLocation(REPO_FOLDER);
     run("git clone %s".format(link));
-    pushLocation(getcwd() ~ Path(repoName));
+    pushLocation(path);
     run("git remote add upstream %s".format(createRepoLink(OFFICIAL_GITHUB_USER_NAME, repoName)));
     popLocation();
     popLocation();
