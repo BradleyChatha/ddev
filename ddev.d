@@ -96,6 +96,7 @@ const HELP_STRING =
     build dmd [release/debug]=debug - Builds dmd in release/debug mode, defaults to debug.
     build druntime                  - Builds DRuntime.
     build phobos                    - Builds Phobos
+    update dmd/druntime/phobos      - Attempts to pull the latest master branch from the official repo.
     setup                           - The dev environment will be setup based on the configuration built with.
     help                            - Displays this helpful message.
 `;
