@@ -177,6 +177,25 @@ void downloadRepo(string username, string repoName)
     writefln("The setup for '%s' has been completed.", repoName);
 }
 
+void updateRepo(string repoName)
+{
+    auto path = getRepoLocation(repoName);
+
+    writefln("Checking for '%s'...", repoName);
+    if(!path.exists)
+    {
+        writefln("The repo '%s' doesn't appear to exist, please run 'ddev setup'. Skipping update.", repoName);
+        return;
+    }
+
+    pushLocation(path);
+    run("git fetch upstream master");
+    run("git pull upstream master");
+    popLocation();
+
+    writefln("The update for '%s' was successful.", repoName);
+}
+
 // Works the same way as Powershell's Push-Location
 void pushLocation(Path newLocation)
 {
@@ -211,7 +230,10 @@ void doSetup()
 {
     // Copy over the precompiled files we need.
     failEnforce(PRECOMPILED_FOLDER.exists,
-        "Please goto https://dlang.org/download.html and download the archive for your platform.\n"
+         "\n############################\n"
+        ~"# Additional step required #\n"
+        ~"############################\n"
+        ~"Please goto https://dlang.org/download.html and download the archive for your platform.\n"
         ~"Then, open it, and extract the 'dmd2/windows' 'dmd2/linux' 'dmd2/osx' etc. folder into the same folder as this tool.\n"
         ~"Rename this folder to '%s', and then you can continue with setup.".format(PRECOMPILED_FOLDER)
     );
@@ -289,6 +311,11 @@ void main(string[] args)
         case "build":
             failEnforce(args.length > 2, "Expected 1 arg for the 'build' command. ['phobos', 'druntime', 'dmd']");
             doBuild(args[2], (args.length == 3) ? [] : args[3..$], OUTPUT_COPY_MAP[args[2]]);
+            break;
+
+        case "update":
+            failEnforce(args.length > 2, "Expected 1 arg for the 'update' command. ['phobos', 'druntime', 'dmd']");
+            updateRepo(args[2]);
             break;
 
         case "setup":
