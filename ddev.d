@@ -100,6 +100,21 @@ const HELP_STRING =
     help                            - Displays this helpful message.
 `;
 
+const POST_SETUP_HELP =
+`################
+## What next? ##
+################
+    The next step after setup is to use the 'ddev build' command to build
+    druntime, dmd, and then phobos in that order.
+
+    In general, whenever DMD needs to be updated, you should also update
+    druntime, and vice-versa. Always build druntime before dmd.
+
+    All the projects have had their upstream and origin setup based on your configuration,
+    so for example after you've made whatever changes you want, you can use git to push to 
+    your local repository, and then open a PR for it.
+`;
+
 // ====================
 // = GLOBAL VARIABLES =
 // ====================
@@ -154,6 +169,9 @@ void downloadRepo(string username, string repoName)
     writefln("'%s' doesn't seem to be setup, downloading...", repoName);
     pushLocation(REPO_FOLDER);
     run("git clone %s".format(link));
+    pushLocation(getcwd() ~ Path(repoName));
+    run("git remote add upstream %s".format(createRepoLink(OFFICIAL_GITHUB_USER_NAME, repoName)));
+    popLocation();
     popLocation();
 
     writefln("The setup for '%s' has been completed.", repoName);
@@ -222,6 +240,8 @@ void doSetup()
 
     foreach(name; OFFICIAL_REPO_MAP)
         downloadRepo(OFFICIAL_GITHUB_USER_NAME, name);
+
+    writeln(POST_SETUP_HELP);
 }
 
 void doBuild(string repoName, string[] remainingArgs, Path[string] outputCopyMap)
